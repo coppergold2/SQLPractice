@@ -65,7 +65,13 @@ DELETE FROM albums
 WHERE id = 5;
 
 SELECT * FROM bands
-JOIN albums ON bands.id = albums.band_id;
+INNER JOIN albums ON bands.id = albums.band_id;
+
+SELECT * FROM bands
+LEFT JOIN albums ON bands.id = albums.band_id;
+
+SELECT * FROM albums
+RIGHT JOIN bands ON bands.id = albums.band_id;
 
 
 
