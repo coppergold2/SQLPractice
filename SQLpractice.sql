@@ -78,13 +78,21 @@ SELECT SUM(release_year) FROM albums;
 SELECT band_id, COUNT(band_id) FROM albums
 GROUP BY band_id;
 
+SELECT * FROM albums;
+SELECT * FROM bands;
 SELECT b.name AS band_name, COUNT(a.id) AS num_albums
 FROM bands AS b
 LEFT JOIN albums AS a ON b.id = a.band_id
 GROUP BY b.id;
 
 
+SELECT name AS 'Band Name'  FROM bands; -- q1
 
+SELECT 	* FROM albums WHERE release_year IS NOT NULL  -- q2
+ORDER BY release_year 
+LIMIT 1 ;
+
+SELECT DISTINCT name as 'Band Name' FROM bands;
 
 
 
