@@ -85,6 +85,14 @@ FROM bands AS b
 LEFT JOIN albums AS a ON b.id = a.band_id
 GROUP BY b.id;
 
+CREATE TABLE songs(
+id INT NOT NULL AUTO_INCREMENT,
+name VARCHAR(255) NOT NULL,
+length FLOAT NOT NULL,
+album_id INT NOT NULL,
+PRIMARY KEY(id),
+FOREIGN KEY(album_id) REFERENCES albums(id)
+); -- q0
 
 SELECT name AS 'Band Name'  FROM bands; -- q1
 
@@ -92,7 +100,45 @@ SELECT 	* FROM albums WHERE release_year IS NOT NULL  -- q2
 ORDER BY release_year 
 LIMIT 1 ;
 
-SELECT DISTINCT name as 'Band Name' FROM bands;
+SELECT DISTINCT bands.name AS 'Band Name' FROM bands
+JOIN albums ON bands.id = albums.band_id; -- q3
+
+/* If bands do not have a unique name then use this query */
+/* 
+  SELECT bands.name AS 'Band Name'
+  FROM bands
+  JOIN albums ON bands.id = albums.band_id
+  GROUP BY albums.band_id
+  HAVING COUNT(albums.id) > 0;
+*/
+
+SELECT DISTINCT bands.name AS 'Band Name' FROM bands -- q4 
+LEFT JOIN albums ON bands.id = albums.band_id 
+WHERE albums.band_id IS NULL;
+
+SELECT albums.name AS Name, albums.release_year AS 'Release Year', SUM(songs.length) AS Duration 
+FROM albums
+JOIN songs ON albums.id = songs.album_id 
+GROUP BY songs.album_id
+ORDER BY Duration DESC
+LIMIT 1;   -- q5
+
+UPDATE albums  -- q6
+SET release_year = 1962
+WHERE albums.id = 4;
+
+INSERT INTO bands(name) VALUES('newjeans'); -- q7
+SELECT * FROM bands;
+INSERT INTO albums(name,release_year,band_id) VALUES('Ditto',2023,8);
+SELECT * FROM albums;    
+
+DELETE FROM albums WHERE albums.id = 19;
+DELETE FROM bands WHERE bands.id = 8; -- q8
+
+SELECT AVG(songs.length) AS 'Average Song Duration' FROM songs -- q9
+
+  
+
 
 
 
