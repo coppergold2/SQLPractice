@@ -1,0 +1,3 @@
+[submodule "Learn-SQL"]
+	path = Learn-SQL
+	url = git@github.com:WebDevSimplified/Learn-SQL.git
