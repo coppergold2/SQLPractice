@@ -124,7 +124,7 @@ ORDER BY Duration DESC
 LIMIT 1;   -- q5
 
 UPDATE albums  -- q6
-SET release_year = 1962
+SET release_year = 1986
 WHERE albums.id = 4;
 
 INSERT INTO bands(name) VALUES('newjeans'); -- q7
@@ -135,7 +135,19 @@ SELECT * FROM albums;
 DELETE FROM albums WHERE albums.id = 19;
 DELETE FROM bands WHERE bands.id = 8; -- q8
 
-SELECT AVG(songs.length) AS 'Average Song Duration' FROM songs -- q9
+SELECT AVG(songs.length) AS 'Average Song Duration' FROM songs; -- q9
+
+SELECT albums.name AS Album, albums.release_year AS "Release Year", MAX(songs.length) AS Duration 
+FROM albums
+JOIN songs ON albums.id  = songs.album_id
+GROUP BY albums.id;  -- q10
+SELECT * FROM songs;
+SELECT bands.name AS Band, COUNT(songs.album_id) AS "Number of Songs"
+FROM bands
+JOIN albums ON bands.id = albums.band_id
+JOIN songs ON albums.id = songs.album_id
+GROUP BY bands.id  -- q11
+
 
   
 
